@@ -85,24 +85,82 @@ public class Nematode
     {
         nv.background(0);
 
+        int color1 = (int) name.charAt(0) * 7;
+        int color2 = (int) name.charAt(1) * 2;
+        int color3 = (int) gender.charAt(0) * 5;
+
+        nv.stroke(color1,color2,color3);
+
         //prints the name
         nv.textAlign(PApplet.CENTER);
         nv.textSize(25);
-        nv.text(name, nv.width/2, nv.height/4);
+        nv.text(name, nv.width/2, nv.height/5);
 
-        int segements = length;
-        nv.stroke(255);
+        int segements = length;;
         nv.noFill();
+
         for(int i = 0; i < segements; i++)
         {
-            float y = PApplet.map(i, 0, length, 300, nv.height-250);
-            nv.circle(nv.width/2, y, 50);
+            nv.pushMatrix();
+            nv.translate(nv.width/2, (nv.height/2 - (length/2 * 50)) + (50 * i));
 
+            float y = PApplet.map(i, 0, length, 300, nv.height-250);
+
+            nv.circle(0, 0, 50);
+
+            if (i == 0 && eyes == 1)
+            {
+                //draw right eye stalk
+                nv.line(
+                    PApplet.sin(PApplet.radians(180-45)) * 50/2, 
+                    PApplet.cos(PApplet.radians(180-45)) * 50/2, 
+                    PApplet.sin(PApplet.radians(180-45)) * 50, 
+                    PApplet.cos(PApplet.radians(180-45)) * 50
+                );
+                //draw left eye stalk
+                nv.line(
+                    PApplet.sin(PApplet.radians(180+45)) * 50/2, 
+                    PApplet.cos(PApplet.radians(180+45)) * 50/2, 
+                    PApplet.sin(PApplet.radians(180+45)) * 50, 
+                    PApplet.cos(PApplet.radians(180+45)) * 50
+                );
+            }
+
+            //draw limbs if they have it
             if(limbs == 1)
             {
-                nv.line(nv.width/2.3f, y, nv.width/2.13f, y);
-                nv.line(nv.width/1.88f, y, nv.width/1.75f, y);
+                nv.line(50, 0, 27, 0);
+                nv.line(-50, 0, -27, 0);
+
             }
+
+            //some reason i cant do gender == "m"
+            //so this was the only way i figured
+            if (length - 1 == i)
+            {
+                switch (gender)
+                {
+                    case("m"):
+                    {
+                        nv.line(0, 25, 0, 50);
+                        nv.circle(0, 55, 10);
+                        break;
+                    }
+                    case "h":
+                    {
+                        nv.circle(0, 0, 25);
+                        nv.line(0, 25, 0, 50);
+                        nv.circle(0, 55, 10);
+                        break;
+                    }
+                    case "f":
+                    {
+                        nv.circle(0, 0, 25);
+                        break;
+                    }
+                }
+            }
+            nv.popMatrix();
         }
 
 
