@@ -85,23 +85,23 @@ public class Nematode
     {
         nv.background(0);
 
-        int color1 = (int) name.charAt(0) * 7;
-        int color2 = (int) name.charAt(1) * 2;
-        int color3 = (int) gender.charAt(0) * 5;
-
-        nv.stroke(color1,color2,color3);
 
         //prints the name
         nv.textAlign(PApplet.CENTER);
         nv.textSize(25);
         nv.text(name, nv.width/2, nv.height/5);
 
-        int segements = length;;
+        int segements = length;
         nv.noFill();
 
         for(int i = 0; i < segements; i++)
         {
             nv.pushMatrix();
+            float color = 0;
+            color = PApplet.map(i, 0, length, 0, 255);
+            nv.stroke(color,255,255);
+
+
             nv.translate(nv.width/2, (nv.height/2 - (length/2 * 50)) + (50 * i));
 
             float y = PApplet.map(i, 0, length, 300, nv.height-250);
