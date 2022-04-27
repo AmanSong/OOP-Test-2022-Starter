@@ -1,5 +1,7 @@
 package ie.tudublin;
 
+import processing.data.TableRow;
+
 public class Nematode 
 {
     //fields
@@ -14,6 +16,18 @@ public class Nematode
     public String toString() {
         return "Nematode [eyes=" + eyes + ", gender=" + gender + ", length=" + length + ", limbs=" + limbs + ", name="
                 + name + "]";
+    }
+
+    //TableRow constructor
+    public Nematode(TableRow tr)
+    {
+        this(
+            tr.getString("name"),
+            tr.getInt("length"),
+            tr.getInt("limbs"),
+            tr.getString("gender"),
+            tr.getInt("eyes")
+        );
     }
 
     //constructor
